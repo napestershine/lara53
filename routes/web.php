@@ -12,5 +12,8 @@
 */
 
 Route::get('/', function () {
+    return realpath(base_path('resources/views'));
     return view('welcome');
 });
+
+Route::get('users', ['uses' => 'UsersController@index']);

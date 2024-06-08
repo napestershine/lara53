@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function showPath()
+    {
+        return realpath(base_path('resources/views'));
+    }
 }

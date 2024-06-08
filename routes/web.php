@@ -1,27 +1,18 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
-|
-*/
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UsersController;
 
 Route::get('/', function () {
     return realpath(base_path('resources/views'));
-    return view('welcome');
 });
 
-Route::get('users', ['uses' => 'UsersController@index']);
-
-Route::get('users/create', ['uses' => 'UsersController@create']);
-
-Route::post('users', ['uses' => 'UsersController@store']);
+Route::get('users', [UsersController::class, 'index']);
+Route::get('users/create', [UsersController::class, 'create']);
+Route::post('users', [UsersController::class, 'store']);
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'showPath']);

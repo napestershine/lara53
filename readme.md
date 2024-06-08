@@ -3,11 +3,11 @@
 ```sh
 
 # Debug
+docker-compose exec app tail -f storage/logs/laravel.log
+docker-compose logs webserver
 
 docker-compose exec app php artisan key:generate
 docker-compose ps
-docker-compose logs webserver
-docker-compose exec app tail -f storage/logs/laravel.log
 docker-compose exec app php artisan config:clear
 docker-compose exec app php artisan cache:clear
 docker-compose exec app php artisan route:clear

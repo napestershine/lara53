@@ -1,17 +1,29 @@
 <?php return array (
+  0 => 'hashing',
+  11 => 'cors',
+  12 => 'logging',
   'app' => 
   array (
     'name' => 'Laravel',
     'env' => 'production',
     'debug' => false,
     'url' => 'http://localhost',
+    'frontend_url' => 'http://localhost:3000',
+    'asset_url' => NULL,
     'timezone' => 'UTC',
     'locale' => 'en',
     'fallback_locale' => 'en',
-    'key' => 'base64:snsDYoEZpm7dXEA6BrkefzYCTjGWfZEvKL971fL4Wrk=',
+    'faker_locale' => 'en_US',
     'cipher' => 'AES-256-CBC',
-    'log' => 'single',
-    'log_level' => 'debug',
+    'key' => 'base64:snsDYoEZpm7dXEA6BrkefzYCTjGWfZEvKL971fL4Wrk=',
+    'previous_keys' => 
+    array (
+    ),
+    'maintenance' => 
+    array (
+      'driver' => 'file',
+      'store' => 'database',
+    ),
     'providers' => 
     array (
       0 => 'Illuminate\\Auth\\AuthServiceProvider',
@@ -76,6 +88,8 @@
       'Validator' => 'Illuminate\\Support\\Facades\\Validator',
       'View' => 'Illuminate\\Support\\Facades\\View',
     ),
+    'log' => 'single',
+    'log_level' => 'debug',
   ),
   'auth' => 
   array (
@@ -114,12 +128,30 @@
         'expire' => 60,
       ),
     ),
+    'password_timeout' => 10800,
   ),
   'broadcasting' => 
   array (
     'default' => 'null',
     'connections' => 
     array (
+      'reverb' => 
+      array (
+        'driver' => 'reverb',
+        'key' => NULL,
+        'secret' => NULL,
+        'app_id' => NULL,
+        'options' => 
+        array (
+          'host' => NULL,
+          'port' => 443,
+          'scheme' => 'https',
+          'useTLS' => true,
+        ),
+        'client_options' => 
+        array (
+        ),
+      ),
       'pusher' => 
       array (
         'driver' => 'pusher',
@@ -130,10 +162,10 @@
         array (
         ),
       ),
-      'redis' => 
+      'ably' => 
       array (
-        'driver' => 'redis',
-        'connection' => 'default',
+        'driver' => 'ably',
+        'key' => NULL,
       ),
       'log' => 
       array (
@@ -143,6 +175,11 @@
       array (
         'driver' => 'null',
       ),
+      'redis' => 
+      array (
+        'driver' => 'redis',
+        'connection' => 'default',
+      ),
     ),
   ),
   'cache' => 
@@ -150,10 +187,6 @@
     'default' => 'file',
     'stores' => 
     array (
-      'apc' => 
-      array (
-        'driver' => 'apc',
-      ),
       'array' => 
       array (
         'driver' => 'array',
@@ -196,6 +229,23 @@
         'driver' => 'redis',
         'connection' => 'default',
       ),
+      'dynamodb' => 
+      array (
+        'driver' => 'dynamodb',
+        'key' => NULL,
+        'secret' => NULL,
+        'region' => 'us-east-1',
+        'table' => 'cache',
+        'endpoint' => NULL,
+      ),
+      'octane' => 
+      array (
+        'driver' => 'octane',
+      ),
+      'apc' => 
+      array (
+        'driver' => 'apc',
+      ),
     ),
     'prefix' => 'laravel',
   ),
@@ -210,7 +260,6 @@
   ),
   'database' => 
   array (
-    'fetch' => 5,
     'default' => 'mysql',
     'connections' => 
     array (
@@ -234,6 +283,26 @@
         'strict' => true,
         'engine' => NULL,
       ),
+      'mariadb' => 
+      array (
+        'driver' => 'mariadb',
+        'url' => NULL,
+        'host' => 'db',
+        'port' => '3306',
+        'database' => 'laravel',
+        'username' => 'laravel',
+        'password' => 'secret',
+        'unix_socket' => '',
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_unicode_ci',
+        'prefix' => '',
+        'prefix_indexes' => true,
+        'strict' => true,
+        'engine' => NULL,
+        'options' => 
+        array (
+        ),
+      ),
       'pgsql' => 
       array (
         'driver' => 'pgsql',
@@ -246,6 +315,19 @@
         'prefix' => '',
         'schema' => 'public',
         'sslmode' => 'prefer',
+      ),
+      'sqlsrv' => 
+      array (
+        'driver' => 'sqlsrv',
+        'url' => NULL,
+        'host' => 'db',
+        'port' => '3306',
+        'database' => 'laravel',
+        'username' => 'laravel',
+        'password' => 'secret',
+        'charset' => 'utf8',
+        'prefix' => '',
+        'prefix_indexes' => true,
       ),
     ),
     'migrations' => 'migrations',
@@ -260,11 +342,11 @@
         'database' => 0,
       ),
     ),
+    'fetch' => 5,
   ),
   'filesystems' => 
   array (
     'default' => 'local',
-    'cloud' => 's3',
     'disks' => 
     array (
       'local' => 
@@ -287,17 +369,90 @@
         'bucket' => 'your-bucket',
       ),
     ),
+    'links' => 
+    array (
+      '/var/www/public/storage' => '/var/www/storage/app/public',
+    ),
+    'cloud' => 's3',
   ),
   'mail' => 
   array (
-    'driver' => 'smtp',
-    'host' => 'smtp.mailgun.org',
-    'port' => 587,
+    'default' => 'log',
+    'mailers' => 
+    array (
+      'smtp' => 
+      array (
+        'transport' => 'smtp',
+        'url' => NULL,
+        'host' => '127.0.0.1',
+        'port' => 2525,
+        'encryption' => 'tls',
+        'username' => NULL,
+        'password' => NULL,
+        'timeout' => NULL,
+        'local_domain' => NULL,
+      ),
+      'ses' => 
+      array (
+        'transport' => 'ses',
+      ),
+      'postmark' => 
+      array (
+        'transport' => 'postmark',
+      ),
+      'resend' => 
+      array (
+        'transport' => 'resend',
+      ),
+      'sendmail' => 
+      array (
+        'transport' => 'sendmail',
+        'path' => '/usr/sbin/sendmail -bs -i',
+      ),
+      'log' => 
+      array (
+        'transport' => 'log',
+        'channel' => NULL,
+      ),
+      'array' => 
+      array (
+        'transport' => 'array',
+      ),
+      'failover' => 
+      array (
+        'transport' => 'failover',
+        'mailers' => 
+        array (
+          0 => 'smtp',
+          1 => 'log',
+        ),
+      ),
+      'roundrobin' => 
+      array (
+        'transport' => 'roundrobin',
+        'mailers' => 
+        array (
+          0 => 'ses',
+          1 => 'postmark',
+        ),
+      ),
+    ),
     'from' => 
     array (
       'address' => 'hello@example.com',
       'name' => 'Example',
     ),
+    'markdown' => 
+    array (
+      'theme' => 'default',
+      'paths' => 
+      array (
+        0 => '/var/www/resources/views/vendor/mail',
+      ),
+    ),
+    'driver' => 'smtp',
+    'host' => 'smtp.mailgun.org',
+    'port' => 587,
     'encryption' => 'tls',
     'username' => NULL,
     'password' => NULL,
@@ -343,6 +498,11 @@
         'retry_after' => 90,
       ),
     ),
+    'batching' => 
+    array (
+      'database' => 'mysql',
+      'table' => 'job_batches',
+    ),
     'failed' => 
     array (
       'database' => 'mysql',
@@ -351,16 +511,32 @@
   ),
   'services' => 
   array (
-    'mailgun' => 
+    'postmark' => 
     array (
-      'domain' => NULL,
-      'secret' => NULL,
+      'token' => NULL,
     ),
     'ses' => 
     array (
       'key' => NULL,
       'secret' => NULL,
       'region' => 'us-east-1',
+    ),
+    'resend' => 
+    array (
+      'key' => NULL,
+    ),
+    'slack' => 
+    array (
+      'notifications' => 
+      array (
+        'bot_user_oauth_token' => NULL,
+        'channel' => NULL,
+      ),
+    ),
+    'mailgun' => 
+    array (
+      'domain' => NULL,
+      'secret' => NULL,
     ),
     'sparkpost' => 
     array (
@@ -393,6 +569,8 @@
     'domain' => NULL,
     'secure' => false,
     'http_only' => true,
+    'same_site' => 'lax',
+    'partitioned' => false,
   ),
   'view' => 
   array (
@@ -401,5 +579,148 @@
       0 => '/var/www/resources/views',
     ),
     'compiled' => '/var/www/storage/framework/views',
+  ),
+  'hashing' => 
+  array (
+    'driver' => 'bcrypt',
+    'bcrypt' => 
+    array (
+      'rounds' => 12,
+      'verify' => true,
+    ),
+    'argon' => 
+    array (
+      'memory' => 65536,
+      'threads' => 1,
+      'time' => 4,
+      'verify' => true,
+    ),
+    'rehash_on_login' => true,
+  ),
+  'cors' => 
+  array (
+    'paths' => 
+    array (
+      0 => 'api/*',
+      1 => 'sanctum/csrf-cookie',
+    ),
+    'allowed_methods' => 
+    array (
+      0 => '*',
+    ),
+    'allowed_origins' => 
+    array (
+      0 => '*',
+    ),
+    'allowed_origins_patterns' => 
+    array (
+    ),
+    'allowed_headers' => 
+    array (
+      0 => '*',
+    ),
+    'exposed_headers' => 
+    array (
+    ),
+    'max_age' => 0,
+    'supports_credentials' => false,
+  ),
+  'logging' => 
+  array (
+    'default' => 'stack',
+    'deprecations' => 
+    array (
+      'channel' => 'null',
+      'trace' => false,
+    ),
+    'channels' => 
+    array (
+      'stack' => 
+      array (
+        'driver' => 'stack',
+        'channels' => 
+        array (
+          0 => 'single',
+        ),
+        'ignore_exceptions' => false,
+      ),
+      'single' => 
+      array (
+        'driver' => 'single',
+        'path' => '/var/www/storage/logs/laravel.log',
+        'level' => 'debug',
+        'replace_placeholders' => true,
+      ),
+      'daily' => 
+      array (
+        'driver' => 'daily',
+        'path' => '/var/www/storage/logs/laravel.log',
+        'level' => 'debug',
+        'days' => 14,
+        'replace_placeholders' => true,
+      ),
+      'slack' => 
+      array (
+        'driver' => 'slack',
+        'url' => NULL,
+        'username' => 'Laravel Log',
+        'emoji' => ':boom:',
+        'level' => 'critical',
+        'replace_placeholders' => true,
+      ),
+      'papertrail' => 
+      array (
+        'driver' => 'monolog',
+        'level' => 'debug',
+        'handler' => 'Monolog\\Handler\\SyslogUdpHandler',
+        'handler_with' => 
+        array (
+          'host' => NULL,
+          'port' => NULL,
+          'connectionString' => 'tls://:',
+        ),
+        'processors' => 
+        array (
+          0 => 'Monolog\\Processor\\PsrLogMessageProcessor',
+        ),
+      ),
+      'stderr' => 
+      array (
+        'driver' => 'monolog',
+        'level' => 'debug',
+        'handler' => 'Monolog\\Handler\\StreamHandler',
+        'formatter' => NULL,
+        'with' => 
+        array (
+          'stream' => 'php://stderr',
+        ),
+        'processors' => 
+        array (
+          0 => 'Monolog\\Processor\\PsrLogMessageProcessor',
+        ),
+      ),
+      'syslog' => 
+      array (
+        'driver' => 'syslog',
+        'level' => 'debug',
+        'facility' => 8,
+        'replace_placeholders' => true,
+      ),
+      'errorlog' => 
+      array (
+        'driver' => 'errorlog',
+        'level' => 'debug',
+        'replace_placeholders' => true,
+      ),
+      'null' => 
+      array (
+        'driver' => 'monolog',
+        'handler' => 'Monolog\\Handler\\NullHandler',
+      ),
+      'emergency' => 
+      array (
+        'path' => '/var/www/storage/logs/laravel.log',
+      ),
+    ),
   ),
 );

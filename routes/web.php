@@ -15,3 +15,4 @@ Route::post('users', [UsersController::class, 'store']);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'showPath']);

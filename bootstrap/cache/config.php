@@ -1,7 +1,8 @@
 <?php return array (
   0 => 'hashing',
-  11 => 'cors',
-  12 => 'logging',
+  8 => 'concurrency',
+  12 => 'cors',
+  13 => 'logging',
   'app' => 
   array (
     'name' => 'Laravel',
@@ -15,7 +16,7 @@
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
     'cipher' => 'AES-256-CBC',
-    'key' => 'base64:snsDYoEZpm7dXEA6BrkefzYCTjGWfZEvKL971fL4Wrk=',
+    'key' => NULL,
     'previous_keys' => 
     array (
     ),
@@ -200,7 +201,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/var/www/storage/framework/cache',
+        'path' => '/Users/manu/projects/lara53/storage/framework/cache',
       ),
       'memcached' => 
       array (
@@ -266,17 +267,17 @@
       'sqlite' => 
       array (
         'driver' => 'sqlite',
-        'database' => 'laravel',
+        'database' => '/Users/manu/projects/lara53/database/database.sqlite',
         'prefix' => '',
       ),
       'mysql' => 
       array (
         'driver' => 'mysql',
-        'host' => 'db',
+        'host' => 'localhost',
         'port' => '3306',
-        'database' => 'laravel',
-        'username' => 'laravel',
-        'password' => 'secret',
+        'database' => 'forge',
+        'username' => 'forge',
+        'password' => '',
         'charset' => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix' => '',
@@ -287,11 +288,11 @@
       array (
         'driver' => 'mariadb',
         'url' => NULL,
-        'host' => 'db',
+        'host' => '127.0.0.1',
         'port' => '3306',
         'database' => 'laravel',
-        'username' => 'laravel',
-        'password' => 'secret',
+        'username' => 'root',
+        'password' => '',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -306,11 +307,11 @@
       'pgsql' => 
       array (
         'driver' => 'pgsql',
-        'host' => 'db',
-        'port' => '3306',
-        'database' => 'laravel',
-        'username' => 'laravel',
-        'password' => 'secret',
+        'host' => 'localhost',
+        'port' => '5432',
+        'database' => 'forge',
+        'username' => 'forge',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'schema' => 'public',
@@ -320,11 +321,11 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => 'db',
-        'port' => '3306',
+        'host' => 'localhost',
+        'port' => '1433',
         'database' => 'laravel',
-        'username' => 'laravel',
-        'password' => 'secret',
+        'username' => 'root',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -352,12 +353,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/storage/app',
+        'root' => '/Users/manu/projects/lara53/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/storage/app/public',
+        'root' => '/Users/manu/projects/lara53/storage/app/public',
         'visibility' => 'public',
       ),
       's3' => 
@@ -371,7 +372,7 @@
     ),
     'links' => 
     array (
-      '/var/www/public/storage' => '/var/www/storage/app/public',
+      '/Users/manu/projects/lara53/public/storage' => '/Users/manu/projects/lara53/storage/app/public',
     ),
     'cloud' => 's3',
   ),
@@ -383,14 +384,14 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
+        'scheme' => NULL,
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => 2525,
-        'encryption' => 'tls',
         'username' => NULL,
         'password' => NULL,
         'timeout' => NULL,
-        'local_domain' => NULL,
+        'local_domain' => 'localhost',
       ),
       'ses' => 
       array (
@@ -447,7 +448,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/var/www/resources/views/vendor/mail',
+        0 => '/Users/manu/projects/lara53/resources/views/vendor/mail',
       ),
     ),
     'driver' => 'smtp',
@@ -500,7 +501,7 @@
     ),
     'batching' => 
     array (
-      'database' => 'mysql',
+      'database' => 'sqlite',
       'table' => 'job_batches',
     ),
     'failed' => 
@@ -555,7 +556,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/var/www/storage/framework/sessions',
+    'files' => '/Users/manu/projects/lara53/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -576,9 +577,9 @@
   array (
     'paths' => 
     array (
-      0 => '/var/www/resources/views',
+      0 => '/Users/manu/projects/lara53/resources/views',
     ),
-    'compiled' => '/var/www/storage/framework/views',
+    'compiled' => '/Users/manu/projects/lara53/storage/framework/views',
   ),
   'hashing' => 
   array (
@@ -596,6 +597,10 @@
       'verify' => true,
     ),
     'rehash_on_login' => true,
+  ),
+  'concurrency' => 
+  array (
+    'default' => 'process',
   ),
   'cors' => 
   array (
@@ -647,14 +652,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/var/www/storage/logs/laravel.log',
+        'path' => '/Users/manu/projects/lara53/storage/logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/var/www/storage/logs/laravel.log',
+        'path' => '/Users/manu/projects/lara53/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -719,7 +724,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/var/www/storage/logs/laravel.log',
+        'path' => '/Users/manu/projects/lara53/storage/logs/laravel.log',
       ),
     ),
   ),

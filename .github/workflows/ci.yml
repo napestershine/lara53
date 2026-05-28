@@ -41,6 +41,9 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
+      - name: Prepare storage
+        run: mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
+
       - name: Generate app key
         run: php artisan key:generate
 
